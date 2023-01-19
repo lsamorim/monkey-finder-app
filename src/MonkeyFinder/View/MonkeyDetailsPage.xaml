@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage x:Class="MonkeyFinder.View.MonkeyDetailsPage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
+             x:DataType="viewmodel:MonkeyDetailsViewModel"
+             Shell.PresentationMode="Animated">
+
+    <Shell.TitleView>
+        <HorizontalStackLayout Padding="0"
+                               HorizontalOptions="StartAndExpand" 
+                               VerticalOptions="Center">
+            <Frame
+                CornerRadius="25"
+                WidthRequest="50"
+                HeightRequest="50"
+                Padding="0"
+                IsClippedToBounds="True">
+                <Image Source="{Binding Monkey.Image}"
+                   Aspect="AspectFill"
+                   WidthRequest="50"
+                   HeightRequest="50"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+            </Frame>
+            <Label Text="{Binding Monkey.Name}" VerticalOptions="Center" Margin="5,0" Style="{StaticResource MediumLabel}"/>
+        </HorizontalStackLayout>
+    </Shell.TitleView>
+
+    <Grid RowDefinitions="160,80,Auto,Auto,*">
+        <BoxView Background="{StaticResource Primary}"/>
+
+        <Grid ColumnDefinitions="*,160,*" Grid.Row="1" Grid.ColumnSpan="3">
+            <VerticalStackLayout Padding="0,5">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Start"
+                    Text="Location" Style="{StaticResource SmallLabel}" FontAttributes="Bold"/>
+                <Label HorizontalTextAlignment="Center"
+                    Text="{Binding Monkey.Location}" Style="{StaticResource SmallLabel}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Column="2" Padding="0,5">
+                <Label HorizontalTextAlignment="Center" VerticalOptions="Start"
+                    Text="Population" Style="{StaticResource SmallLabel}" FontAttributes="Bold"/>
+                <Label Grid.Column="2" HorizontalTextAlignment="Center"
+                    Text="{Binding Monkey.Population}" Style="{StaticResource SmallLabel}"/>
+            </VerticalStackLayout>
+        </Grid>
+        
+        <Border StrokeShape="RoundRectangle 80"
+                Stroke="White"
+                StrokeThickness="6"
+                Grid.RowSpan="3"
+                HeightRequest="160"
+                WidthRequest="160"
+                HorizontalOptions="Center"
+                VerticalOptions="Start"
+                Margin="0,80,0,0">
+            <Image Source="{Binding Monkey.Image}"
+                   Aspect="AspectFill"
+                   WidthRequest="160"
+                   HeightRequest="160"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center" />
+        </Border>
+        <Label Grid.Row="2"
+               HorizontalOptions="Center"
+               VerticalOptions="Start"
+               Text="{Binding Monkey.Name}"
+               Style="{StaticResource LargeLabel}"
+               FontAttributes="Bold"/>
+        <Button Grid.Row="3"
+                Text="View On Map"
+                IsEnabled="{Binding IsNotBusy}"
+                Style="{StaticResource ButtonOutline}"
+                HorizontalOptions="Center"
+                WidthRequest="200"
+                Margin="8"
+                Command="{Binding OpenMapCommand}"/>
+
+        <VerticalStackLayout Grid.Row="4" Padding="10" Spacing="10">
+            <Label Text="{Binding Monkey.Details}" Style="{StaticResource SmallLabel}"/>
+        </VerticalStackLayout>
+
+    </Grid>
+</ContentPage>
