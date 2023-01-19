@@ -19,6 +19,12 @@ namespace MonkeyFinder.ViewModel;
 public partial class HomeViewModel : BaseViewModel
 {
     [ObservableProperty]
+    [NotifyPropertyChangedFor(nameof(NavBarIsNotVisible))]
+    private bool navBarIsVisible = true;
+
+    public bool NavBarIsNotVisible => !NavBarIsVisible;
+
+    [ObservableProperty]
     private bool isRefreshing;
 
     private readonly MonkeyService _monkeyService;
@@ -35,6 +41,12 @@ public partial class HomeViewModel : BaseViewModel
         _monkeyService = monkeyService;
         _connectivity = connectivity;
         _geoLocation = geolocation;
+    }
+
+    [RelayCommand]
+    private void SwitchNavBar()
+    {
+        NavBarIsVisible = !NavBarIsVisible;
     }
 
     [RelayCommand]

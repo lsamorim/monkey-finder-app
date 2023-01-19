@@ -8,10 +8,11 @@
              xmlns:model="clr-namespace:MonkeyFinder.Model"
              xmlns:viewmodel="clr-namespace:MonkeyFinder.ViewModel"
              x:DataType="viewmodel:HomeViewModel"
+             Shell.NavBarIsVisible="{Binding NavBarIsVisible}"
              Title="{Binding Title}">
 
     <Page.Behaviors>
-        <mct:StatusBarBehavior StatusBarColor="Transparent" StatusBarStyle="DarkContent" />
+        <mct:StatusBarBehavior StatusBarColor="{StaticResource PrimaryDark}" StatusBarStyle="DarkContent" />
     </Page.Behaviors>
     
     <ContentPage.ToolbarItems>
@@ -23,7 +24,7 @@
         <ToolbarItem Text="Profile"
                      Priority="2"
                      Order="Primary"
-                     Command="{Binding NavigateToProfilePageCommand}"/>
+                     Command="{Binding ProfileCommand}"/>
 
         <ToolbarItem Text="Share App"
                      Priority="3"
@@ -41,6 +42,34 @@
         ColumnSpacing="0"
         RowDefinitions="*,Auto"
         RowSpacing="0">
+
+        <Frame
+            Grid.ColumnSpan="2"
+            VerticalOptions="Start"
+            HeightRequest="56"
+            Padding="4,0"
+            CornerRadius="0"
+            BackgroundColor="{StaticResource Primary}"
+            IsVisible="{Binding NavBarIsNotVisible}">
+            <Grid ColumnDefinitions="*">
+                <Button Text="A" 
+                        BackgroundColor="Transparent" 
+                        HorizontalOptions="Start"
+                        CornerRadius="30"
+                        WidthRequest="60" 
+                        HeightRequest="60"/>
+                <Label Text="{Binding Title}" HorizontalOptions="Center" VerticalOptions="Center"
+                       Style="{StaticResource MediumLabel}"
+                       TextColor="{StaticResource LabelTextDark}"
+                       FontAttributes="Bold"/>
+                <Button Text="B" 
+                        BackgroundColor="Transparent" 
+                        HorizontalOptions="End"
+                        CornerRadius="30"
+                        WidthRequest="60" 
+                        HeightRequest="60"/>
+            </Grid>
+        </Frame>
 
         <RefreshView
             Grid.ColumnSpan="2"
@@ -103,6 +132,14 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+
+        <Button Text="Switch Navbar" 
+                Command="{Binding SwitchNavBarCommand}"
+                VerticalOptions="End"
+                Grid.Row="0"
+                Grid.Column="0"
+                Style="{StaticResource ButtonOutline}"
+                Margin="8"/>
 
         <Button Text="Get Monkeys" 
                 Command="{Binding GetMonkeysCommand}"
